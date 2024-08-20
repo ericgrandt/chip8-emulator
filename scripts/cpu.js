@@ -57,11 +57,23 @@ class CPU {
         }
     }
 
+    reset(){
+        this.memory = new Uint8Array(4096);
+        this.v = new Uint8Array(16);
+        this.delayTimer = 0;
+		this.soundTimer = 0;
+        this.i = 0;
+        this.pc = 0x200;
+        this.stack = new Array();
+    }
+
     loadProgramIntoMemory(program) {
+        this.reset()
         for (let loc = 0; loc < program.length; loc++) {
             this.memory[0x200 + loc] = program[loc];
         }
     }
+    
 
     loadRom(romName) {
         var request = new XMLHttpRequest;
